@@ -91,7 +91,6 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
     const end = page * resPerPage;
 
     recipes.slice(start, end).forEach(renderRecipe); //forEach automatically call the function and passes the current element
-    clearButton();
     renderButton(page, recipes.length, resPerPage);
 };
 
