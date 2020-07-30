@@ -94,4 +94,16 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
     renderButton(page, recipes.length, resPerPage);
 };
 
+/**
+ * Highlight Selected Recipe
+ */
+export const highlightRecipe = id => {
+    if(id)
+    {
+        const elements = Array.from(document.querySelectorAll('.results__link'));
+        elements.forEach(el => el.classList.remove('results__link--active'));
+        document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    }
+};
+
 

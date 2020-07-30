@@ -18,6 +18,7 @@ console.log(`Imported function add: ${searchView.add(searchView.ID, 2)} and mult
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader, elementStrings } from './views/base';
 
 /** Global state of the app
@@ -91,23 +92,28 @@ const controlRecipe = async () => {
 
     if (id) {
         //prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe);
 
         //create new recipe object
         state.recipe = new Recipe(id);
 
+        if (state.search) searchView.highlightRecipe(id);
 
         try {
             //get recipe data and paese ingredients
             await state.recipe.getRecipe();
             state.recipe.parseIngredients();
             console.log(state.recipe);
+            clearLoader();
+
 
             //calculate time and serving
             state.recipe.calcTime();
             state.recipe.calcServings();
 
             //render the recipe
-            //console.log(state.recipe);
+            recipeView.renderRecipe(state.recipe);
         } catch (error) {
             alert(error);
         }
@@ -121,4 +127,24 @@ const controlRecipe = async () => {
  * mulitple events in single event lister
  */
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+/**
+ * Handling recipe button cliks
+ */
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+        //decrese button clicked
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+        }
+        recipeView.updateServingIngredients(state.recipe);
+
+    }
+    else if (e.target.matches('.btn-increase, .btn-increase *')) {
+        //Increase button clicked
+        state.recipe.updateServings('inc');
+        recipeView.updateServingIngredients(state.recipe);
+    }
+});
+
 
