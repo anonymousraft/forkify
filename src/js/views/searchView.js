@@ -11,7 +11,7 @@ import { elements } from './base';
 
 export const getInput = () => elements.searchInput.value;
 
-const renderTitleLimit = (title, limit = 17) => {
+export const renderTitleLimit = (title, limit = 17) => {
     const newTitle = [];
 
     if (title.length > limit) {
@@ -102,7 +102,7 @@ export const highlightRecipe = id => {
     {
         const elements = Array.from(document.querySelectorAll('.results__link'));
         elements.forEach(el => el.classList.remove('results__link--active'));
-        document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+        document.querySelector(`.results__link[href*="#${id}"]`).classList.add('results__link--active');
     }
 };
 
