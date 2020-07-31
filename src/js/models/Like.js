@@ -11,7 +11,7 @@ export default class Like {
             img
         }
         this.likes.push(like);
-        
+
         //persisting like in localStorage API
         this.persistData();
 
@@ -34,14 +34,14 @@ export default class Like {
         return this.likes.length;
     }
 
-    persistData(){
+    persistData() {
         localStorage.setItem('likes', JSON.stringify(this.likes));
     }
 
-    readStorage(){
+    readStorage() {
         const storage = JSON.parse(localStorage.getItem('likes'));
 
         //restoring the likes from localStorage
-        if(storage) this.likes = storage;
+        if (storage) this.likes = storage;
     }
 };

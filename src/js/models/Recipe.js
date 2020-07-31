@@ -40,7 +40,7 @@ export default class Recipe {
     parseIngredients() {
         const unitLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'cup'];
         const unitShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'cups'];
-        const unit = [...unitShort, 'g','kg'];
+        const unit = [...unitShort, 'g', 'kg'];
 
         const newIngredients = this.ingredients.map(el => {
 
@@ -101,7 +101,7 @@ export default class Recipe {
         this.ingredients = newIngredients;
     }
 
-    updateServings(type){
+    updateServings(type) {
         //serving
         const newServing = type === 'dec' ? this.servings - 1 : this.servings + 1;
 

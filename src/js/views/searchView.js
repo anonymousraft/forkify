@@ -98,8 +98,7 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
  * Highlight Selected Recipe
  */
 export const highlightRecipe = id => {
-    if(id)
-    {
+    if (id) {
         const elements = Array.from(document.querySelectorAll('.results__link'));
         elements.forEach(el => el.classList.remove('results__link--active'));
         document.querySelector(`.results__link[href*="#${id}"]`).classList.add('results__link--active');

@@ -16,10 +16,10 @@ export const renderList = item => {
                 </li>
     `;
 
-    elements.shoppingList.insertAdjacentHTML('beforeend',markup);
+    elements.shoppingList.insertAdjacentHTML('beforeend', markup);
 };
 
 export const deleteItem = id => {
     const item = document.querySelector(`[data-itemid="${id}"]`);
-    if(item) item.remove();
+    if (item) item.remove();
 };

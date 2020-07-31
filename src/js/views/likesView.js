@@ -25,10 +25,10 @@ export const renderLikes = like => {
         </a>
     </li>    
     `;
-    elements.likesList.insertAdjacentHTML('beforeend',markup);
+    elements.likesList.insertAdjacentHTML('beforeend', markup);
 };
 
 export const deleteLikeItem = id => {
     const el = document.querySelector(`.likes__link[href*="${id}"]`).parentElement;
-    if(el) el.remove();
+    if (el) el.remove();
 };

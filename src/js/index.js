@@ -32,7 +32,6 @@ import { elements, renderLoader, clearLoader, elementStrings } from './views/bas
  * - liked recipes
  */
 const state = {};
-window.state = state;
 
 /**
  * SEARCH CONTROLLER
@@ -71,7 +70,6 @@ const controlSearch = async () => {
 
 };
 
-
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
     controlSearch();
@@ -109,7 +107,6 @@ const controlRecipe = async () => {
             //get recipe data and paese ingredients
             await state.recipe.getRecipe();
             state.recipe.parseIngredients();
-            console.log(state.recipe);
             clearLoader();
 
 
@@ -121,10 +118,9 @@ const controlRecipe = async () => {
             recipeView.renderRecipe(
                 state.recipe,
                 state.likes.isLiked(id)
-                );
+            );
         } catch (error) {
             alert(error);
-            console.log(error);
         }
 
     }
@@ -142,10 +138,10 @@ const controlRecipe = async () => {
  */
 const controlList = () => {
     //create item array
-    if(!state.list) state.list = new List();
+    if (!state.list) state.list = new List();
 
     //update item array from ingridients and render UI
-    state.recipe.ingredients.forEach( el => {
+    state.recipe.ingredients.forEach(el => {
         const item = state.list.addItem(
             el.count,
             el.unit,
@@ -161,42 +157,35 @@ elements.shoppingList.addEventListener('click', e => {
     const id = e.target.closest('.shopping__item').dataset.itemid;
 
     //handle the delete event
-    if (e.target.matches('.shopping__delete, .shopping__delete *'))
-    {
+    if (e.target.matches('.shopping__delete, .shopping__delete *')) {
         //delete from the state and UI
         state.list.deleteItem(id);
         listView.deleteItem(id);
 
-    //handle count event
+        //handle count event
     }
-    else if (e.target.matches('.shopping__count--value'))
-    {
-        if (e.target.value > 1)
-        {
+    else if (e.target.matches('.shopping__count--value')) {
+        if (e.target.value > 1) {
             const val = parseFloat(e.target.value, 10);
-            state.list.updateCount(id, val);            
+            state.list.updateCount(id, val);
         }
         else {
             alert('Count must be greater than 0');
-        }      
+        }
     }
 });
 
 /**
  * LIKE CONTROLLER
  */
-//Testing
-
-
-
 const controlLike = () => {
 
-    if(!state.likes) state.likes = new Like();
+    if (!state.likes) state.likes = new Like();
 
     const currentID = state.recipe.id;
 
     //user has not yet liked current recipe
-    if(!state.likes.isLiked(currentID)){
+    if (!state.likes.isLiked(currentID)) {
         //add like to state
         const newLike = state.likes.addLike(
             currentID,
@@ -204,7 +193,6 @@ const controlLike = () => {
             state.recipe.publisher,
             state.recipe.image_url
         );
-        console.log(newLike);
 
         //toggle like btn
         likesView.toggleLikeBtn(true);
@@ -212,8 +200,8 @@ const controlLike = () => {
         //add like to UI list
         likesView.renderLikes(newLike);
 
-    //user has liked current recipe
-    }else{
+        //user has liked current recipe
+    } else {
         //remove like to state
         state.likes.deleteLike(currentID);
 
@@ -224,7 +212,7 @@ const controlLike = () => {
         likesView.deleteLikeItem(currentID);
     }
     likesView.toggleLikeMenu(state.likes.getNumLikes());
-    
+
 };
 
 //restore liked recepies on page load
@@ -260,11 +248,10 @@ elements.recipe.addEventListener('click', e => {
         state.recipe.updateServings('inc');
         recipeView.updateServingIngredients(state.recipe);
     }
-    else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *'))
-    {
+    else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
         controlList();
     }
-    else if (e.target.matches('.recipe__love, .recipe__love *')){
+    else if (e.target.matches('.recipe__love, .recipe__love *')) {
         controlLike();
     }
 });

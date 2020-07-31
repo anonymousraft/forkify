@@ -24,7 +24,7 @@ export const renderLoader = parent => {
         </div>
     `;
 
-    parent.insertAdjacentHTML('afterbegin',loader);
+    parent.insertAdjacentHTML('afterbegin', loader);
 };
 
 export const clearLoader = () => {
